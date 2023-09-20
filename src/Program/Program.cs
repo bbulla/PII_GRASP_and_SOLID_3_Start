@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using Full_GRASP_And_SOLID.Library;
+using System.IO;
 
 namespace Full_GRASP_And_SOLID
 {
@@ -26,9 +27,12 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
 
-            AllInOnePrinter printer = new AllInOnePrinter();
-            printer.PrintRecipe(recipe, Destination.Console);
-            printer.PrintRecipe(recipe, Destination.File);
+        //Acá la clave es crear printer dentro de IPrinter, y que ConsolePrinter y FilePrinter hereden de IPrinter
+            IPrinter printer;
+            printer = new ConsolePrinter();
+            printer.PrintRecipe(recipe);
+            printer = new FilePrinter();
+            printer.PrintRecipe(recipe);
         }
 
         private static void PopulateCatalogs()
